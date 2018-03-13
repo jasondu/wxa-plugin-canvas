@@ -1,0 +1,3 @@
+<img-canvas images="{{images}}" width="{{width}}" height="{{height}}" background-color="{{backgroundColor}}" debug="{{debug}}">
+    <button>生成海报</button>
+</img-canvas>
