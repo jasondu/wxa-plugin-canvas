@@ -3,7 +3,7 @@
 
 ## 代码片段链接
 
-[点此体验导入代码片段](wechatide://minicode/f8e606e9e666617fd18e72c520014dcd)
+wechatide://minicode/f8e606e9e666617fd18e72c520014dcd
 
 ## 插件效果
 
