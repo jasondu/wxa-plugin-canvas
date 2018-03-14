@@ -3,8 +3,9 @@
 
 ## 插件效果
 
-![image](https://github.com/jasondu/wxa-plugin-canvas/blob/master/demo.gif)
-通过简单的参数传入就可以生成分享海报，图片会根据设定的宽度和高度进行裁剪（不会压缩图片）
+[[ https://github.com/jasondu/wxa-plugin-canvas/blob/master/demo.gif | width = 300px ]]
+
+- 通过简单的参数传入就可以生成分享海报，图片会根据设定的宽度和高度进行裁剪（不会压缩图片）
 
 ## 如何使用
 
