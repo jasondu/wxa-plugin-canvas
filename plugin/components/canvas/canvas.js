@@ -36,10 +36,15 @@ Component({
         this.factor = screenWidth / 750;
     },
     attached() {
-        this.ctx = wx.createCanvasContext('imgCanvas', this);
+        this.ctx = wx.createCanvasContext('imgCanvas', this);   // 加上this才能选中组件内的canvas元素
         this.ctx.setFillStyle(this.data.backgroundColor);
         this.ctx.fillRect(0, 0, this.toPx(this.data.width), this.toPx(this.data.height));
         this.ctx.draw(true);
+
+        this.setData({
+            pxWidth: this.toPx(this.data.width),
+            pxHeight: this.toPx(this.data.height),
+        });
     },
     methods: {
         create() {
@@ -54,6 +59,9 @@ Component({
                     wx.previewImage({
                         urls: [imgPath],
                     });
+                })
+                .catch((err) => {
+                    console.error(err);
                 })
         },
         toImage(ctx) {

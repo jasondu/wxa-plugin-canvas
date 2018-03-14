@@ -1,2 +1,2 @@
-<canvas class="canvas {{debug ? '' : 'pro'}}" canvas-id="imgCanvas"></canvas>
+<canvas style="width: {{pxWidth}}px; height: {{pxHeight}}px;" class="canvas {{debug ? '' : 'pro'}}" canvas-id="imgCanvas"></canvas>
 <view bindtap="create"><slot></slot></view>

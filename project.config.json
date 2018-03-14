@@ -3,7 +3,7 @@
 	"pluginRoot": "./plugin",
 	"compileType": "plugin",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
