@@ -22,7 +22,7 @@ Component({
             type: String,
             value: '#ffffff',
         },
-        debug: {
+        debug: {    // 如果为true会展示canvas，为false则会隐藏
             type: Boolean,
             value: false,
         },

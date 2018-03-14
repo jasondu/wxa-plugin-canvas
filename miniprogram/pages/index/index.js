@@ -17,8 +17,8 @@ Page({
     ],
     width: 750,
     height: 750,
-    backgroundColor: '#ccc',
-    debug: true,
+    backgroundColor: '#fff',
+    debug: false,
   },
   onLoad: function () {
   }
