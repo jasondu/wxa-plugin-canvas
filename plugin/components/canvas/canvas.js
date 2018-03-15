@@ -28,6 +28,7 @@ Component({
         },
     },
     data: {
+        drawArr: [],
     },
     created() {
         const sysInfo = wx.getSystemInfoSync();
@@ -50,9 +51,16 @@ Component({
         create() {
             const { images } = this.data;
             const drawList = [];
-            images.forEach((image) => drawList.push(this.drawImage(image)));
+            images.forEach((image, index) => drawList.push(this.drawImage(image, index)));
             Promise.all(drawList)
                 .then(() => {
+                    this.data.drawArr.sort(function (a, b) {
+                        return a.index - b.index;
+                    });
+                    this.data.drawArr.forEach(({ imgPath, sx, sy, sw, sh, x, y, w, h }) => {
+                        this.ctx.drawImage( imgPath, sx, sy, sw, sh, x, y, w, h );
+                        this.ctx.draw(true);
+                    })
                     return this.toImage(this.ctx);
                 })
                 .then((imgPath) => {
@@ -77,12 +85,12 @@ Component({
                 }, this)
             });
         },
-        drawImage(image) {
+        drawImage(image, index) {
             return new Promise((resolve, reject) => {
                 const { x, y, url } = image;
                 this.downImage(url)
-                    .then((imgPath) => { return this.getImageInfo(imgPath); })
-                    .then(({ imgPath, imgInfo }) => {
+                    .then((imgPath) => { return this.getImageInfo(imgPath, index); })
+                    .then(({ imgPath, imgInfo, index }) => {
                         let sx;
                         let sy;
                         const setWidth = image.width;
@@ -97,10 +105,12 @@ Component({
                             sy = 0;
                             sx = (width - ((height / setHeight) * setWidth)) / 2;
                         }
-                        this.ctx.drawImage(imgPath,
-                            sx, sy, (width - (sx * 2)), (height - (sy * 2)),
-                            this.toPx(x), this.toPx(y), this.toPx(setWidth), this.toPx(setHeight));
-                        this.ctx.draw(true);
+                        this.data.drawArr.push({
+                            index,
+                            imgPath,
+                            sx, sy, sw: (width - (sx * 2)), sh: (height - (sy * 2)),
+                            x: this.toPx(x), y: this.toPx(y), w: this.toPx(setWidth), h: this.toPx(setHeight),
+                        });
                         resolve();
                     })
                     .catch((err) => reject(err));
@@ -123,12 +133,12 @@ Component({
                 });
             })
         },
-        getImageInfo(imgPath) {
+        getImageInfo(imgPath, index) {
             return new Promise((resolve, reject) => {
                 wx.getImageInfo({
                     src: imgPath,
                     success(res) {
-                        resolve({ imgPath, imgInfo: res });
+                        resolve({ imgPath, imgInfo: res, index });
                     },
                     fail(err) {
                         reject(err);
