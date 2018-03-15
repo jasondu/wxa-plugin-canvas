@@ -51,6 +51,7 @@ Component({
         create() {
             const { images } = this.data;
             const drawList = [];
+            this.data.drawArr = [];
             images.forEach((image, index) => drawList.push(this.drawImage(image, index)));
             Promise.all(drawList)
                 .then(() => {
