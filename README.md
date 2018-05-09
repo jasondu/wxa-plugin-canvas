@@ -1,6 +1,10 @@
 # wxa-plugin-canvas
 小程序插件-生成二维码海报
 
+# 其他已经上线的插件
+日历插件：https://github.com/jasondu/wxa-plugin-calendar
+点餐插件：https://github.com/jasondu/wxa-plugin-menu
+
 ## 代码片段链接
 
 wechatide://minicode/f8e606e9e666617fd18e72c520014dcd
