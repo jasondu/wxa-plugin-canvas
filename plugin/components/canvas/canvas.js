@@ -1,18 +1,23 @@
+import plugin from '../../index';
 Component({
     properties: {
         images: {
             type: Array,
-            value: [{
-                url: '',
-                width: 0,
-                height: 0,
-                x: 0,
-                y: 0,
-            }],
+            value: [],
+            observer(newVal, oldVal) {
+                if (oldVal.length > 0) {
+                    this.create();
+                }
+            },
         },
         texts: {
             type: Array,
-            value: []
+            value: [],
+            observer(newVal, oldVal) {
+                if (oldVal.length > 0) {
+                    this.create();
+                }
+            },
         },
         width: {
             type: Number,
@@ -42,10 +47,6 @@ Component({
     },
     attached() {
         this.ctx = wx.createCanvasContext('imgCanvas', this);   // 加上this才能选中组件内的canvas元素
-        this.ctx.setFillStyle(this.data.backgroundColor);
-        this.ctx.fillRect(0, 0, this.toPx(this.data.width), this.toPx(this.data.height));
-        this.ctx.draw(true);
-
         this.setData({
             pxWidth: this.toPx(this.data.width),
             pxHeight: this.toPx(this.data.height),
@@ -56,6 +57,13 @@ Component({
          * 生成海报
          */
         create() {
+            // 清空画布
+            this.ctx.clearRect(0, 0, this.toPx(this.data.width), this.toPx(this.data.height));
+            // 设置画布底色
+            this.ctx.setFillStyle(this.data.backgroundColor);
+            this.ctx.fillRect(0, 0, this.toPx(this.data.width), this.toPx(this.data.height));
+            this.ctx.draw(true);
+
             const { images } = this.data;
             const drawList = [];
             this.data.drawArr = [];
@@ -76,14 +84,17 @@ Component({
                             this.drawText();
                         }
                     })
+                    if (len === 0) {
+                        this.drawText();
+                    }
                     // 将canvas转为图片
                     return this.toImage(this.ctx);
                 })
                 .then((imgPath) => {
-                    // 预览图片
+                    // 生成成功
                     wx.hideLoading();
-                    wx.previewImage({
-                        urls: [imgPath],
+                    this.triggerEvent('success', {
+                        imgPath
                     });
                 })
                 .catch((err) => {
@@ -103,24 +114,25 @@ Component({
                     textArr.push(text.slice(i, i + everyLintNum));
                 }
                 const fontSizePx = this.toPx(fontSize);
-                for (let i = 0; i < lineNum; i ++) {
+                const len = textArr.length;
+                for (let j = 0; j < len; j ++) {
                     let everyText = '';
-                    if (i + 1 === lineNum) {
+                    if (j + 1 === lineNum) {
                         // 最后一行渲染，查询是否还有没渲染完的文字，有的话用...代替
-                        if (typeof textArr[i + 1] !== 'undefined') {
-                            everyText = textArr[i].replace(/(.{2})$/, '...');
+                        if (typeof textArr[j + 1] !== 'undefined') {
+                            everyText = textArr[j].replace(/(.{2})$/, '...');
                         } else {
-                            everyText = textArr[i];
+                            everyText = textArr[j];
                         }
                     } else {
-                        everyText = textArr[i];
+                        everyText = textArr[j];
                     }
                     let lineHeightDis = lineHeight ? this.toPx(lineHeight) : Math.round(fontSizePx);
                     this.ctx.setTextBaseline('top');
                     this.ctx.setFontSize(fontSizePx);
                     this.ctx.setTextAlign(textAlign);
                     this.ctx.setFillStyle(color);
-                    this.ctx.fillText(everyText, this.toPx(x), this.toPx(y) + lineHeightDis * i);
+                    this.ctx.fillText(everyText, this.toPx(x), this.toPx(y) + lineHeightDis * j);
                 }
                 
             });
@@ -190,7 +202,7 @@ Component({
          */
         downImage(imageUrl) {
             return new Promise((resolve, reject) => {
-                wx.downloadFile({
+                plugin.wx.downloadFile({
                     url: imageUrl,
                     success(res) {
                         if (res.statusCode === 200) {
@@ -212,7 +224,7 @@ Component({
          */
         getImageInfo(imgPath, index) {
             return new Promise((resolve, reject) => {
-                wx.getImageInfo({
+                plugin.wx.getImageInfo({
                     src: imgPath,
                     success(res) {
                         resolve({ imgPath, imgInfo: res, index });
