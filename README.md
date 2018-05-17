@@ -44,31 +44,31 @@ wechatide://minicode/f8e606e9e666617fd18e72c520014dcd
 ## 插件参数解释
 
 ```
-        images: { // 需要添加到海报里的图片信息
-            type: Array,
-            value: [{
-                url: '',  // 图片地址
-                width: 0, // 图片要展示的宽度
-                height: 0,// 图片要展示的高度
-                x: 0,     // 图片要展示在海报的x
-                y: 0,     // 图片要展示在海报的y
-            }],
-        },
-        width: { // 海报的宽度
-            type: Number,
-            value: 750,
-        },
-        height: { // 海报的高度
-            type: Number,
-            value: 750,
-        },
-        backgroundColor: { // 海报的背景色
-            type: String,
-            value: '#ffffff',
-        },
-        debug: { // 如果为true会展示canvas，为false则会隐藏
-            type: Boolean,
-            value: false,
-        },
+        images: [   // 需要绘制的图片信息，会按照顺序绘制
+            {
+               url: '',  // 图片地址
+               width: 0, // 图片要展示的宽度
+               height: 0,// 图片要展示的高度
+               x: 0,     // 图片要展示在海报的x
+               y: 0,     // 图片要展示在海报的y
+           }
+        ],
+        texts: [    // 需要绘制的文字信息
+            {
+                text: '测试测试测试测试测试测试测试测试测试测试测试测试',   // 文本内容
+                color: 'blue',          // 文字颜色
+                fontSize: 32,           // 字体 单位rpx
+                textAlign: 'left',      // 对齐方式：left center right
+                x: 0,                   // 坐标x，以文字的右上角为原点，单位rpx
+                y: 300,                 // 坐标y，以文字的右上角为原点，单位rpx
+                width: 500,             // 文字区域的宽度
+                lineNum: 2,             // 文字行数，放不下使用...代替
+                lineHeight: 50,         // 行高 单位rpx
+            }
+        ]
+        width: 750, // 海报的宽度 单位rpx
+        height: 750, // 海报的高度 单位rpx
+        backgroundColor: '#ffffff', // 海报的背景色
+        debug: false // 如果为true会展示canvas，为false则会隐藏
 ```
 > 插件没有审核通过，由于这个插件的性质还是偏向于组件，所以不符合审核要求，代码就先放着吧
