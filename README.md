@@ -1,74 +1,91 @@
 # wxa-plugin-canvas
-小程序插件-生成二维码海报
+小程序组件-小程序海报组件
 
-# 其他已经上线的插件
+## 其他已经上线的插件
 日历插件：https://github.com/jasondu/wxa-plugin-calendar
 点餐插件：https://github.com/jasondu/wxa-plugin-menu
 
 ## 代码片段链接
 
-wechatide://minicode/f8e606e9e666617fd18e72c520014dcd
-
 ## 插件效果
-
-<img width="300" src="https://github.com/jasondu/wxa-plugin-canvas/blob/master/demo.gif"></img>
 
 - 通过简单的参数传入就可以生成分享海报，图片会根据设定的宽度和高度进行裁剪（不会压缩图片）
 
 ## 如何使用
 
-1. 申请插件
-在小程序管理后台-设置-第三方服务-添加插件，插件APPID：wx637a3fa923864f90，添加完请联系（微信：weizaidu）审核通过
-2. 使用插件
-在app.json中加上以下代码
-```
-  "plugins": {
-    "myPlugin": {
-      "version": "1.0.0",
-      "provider": "wx637a3fa923864f90"
-    }
-  }
-```
-在需要使用插件的页面中的json文件添加以下代码
-```
-  "usingComponents": {
-    "img-canvas": "plugin://myPlugin/canvas"
-  }
-```
-在需要使用地方添加
-```
-<img-canvas images="{{images}}" width="{{width}}" height="{{height}}" background-color="{{backgroundColor}}" debug="{{debug}}">
-    <button>生成海报</button> // 这个为自己自定义的按钮
-</img-canvas>
-```
-## 插件参数解释
 
-```
-        images: [   // 需要绘制的图片信息，会按照顺序绘制
-            {
-               url: '',  // 图片地址
-               width: 0, // 图片要展示的宽度
-               height: 0,// 图片要展示的高度
-               x: 0,     // 图片要展示在海报的x
-               y: 0,     // 图片要展示在海报的y
-           }
-        ],
-        texts: [    // 需要绘制的文字信息
-            {
-                text: '测试测试测试测试测试测试测试测试测试测试测试测试',   // 文本内容
-                color: 'blue',          // 文字颜色
-                fontSize: 32,           // 字体 单位rpx
-                textAlign: 'left',      // 对齐方式：left center right
-                x: 0,                   // 坐标x，以文字的右上角为原点，单位rpx
-                y: 300,                 // 坐标y，以文字的右上角为原点，单位rpx
-                width: 500,             // 文字区域的宽度
-                lineNum: 2,             // 文字行数，放不下使用...代替
-                lineHeight: 50,         // 行高 单位rpx
-            }
-        ]
-        width: 750, // 海报的宽度 单位rpx
-        height: 750, // 海报的高度 单位rpx
-        backgroundColor: '#ffffff', // 海报的背景色
-        debug: false // 如果为true会展示canvas，为false则会隐藏
-```
-> 插件没有审核通过，由于这个插件的性质还是偏向于组件，所以不符合审核要求，代码就先放着吧
+## 组件参数解释
+
+### 全局字段
+
+| 字段            | 类型                     | 必填 | 描述                                       |
+| --------------- | ------------------------ | ---- | ------------------------------------------ |
+| width           | Number(单位:rpx)         | 是   | 画布宽度                                   |
+| height          | Number(单位:rpx)         | 是   | 画布高度                                   |
+| backgroundColor | String                   | 否   | 画布颜色                                   |
+| debug           | Boolean                  | 否   | false隐藏canvas，true显示canvas，默认false |
+| blocks          | Object Array（对象数组） | 否   | 看下文                                     |
+| texts           | Object Array（对象数组） | 否   | 看下文                                    |
+| images          | Object Array（对象数组） | 否   | 看下文                                     |
+| lines           | Object Array（对象数组） | 否   | 看下文                                     |
+
+
+###blocks字段
+
+| 字段名          | 类型             | 必填 | 描述                                   |
+| --------------- | ---------------- | ---- | -------------------------------------- |
+| x               | Number(单位:rpx) | 是   | 块的坐标                               |
+| y               | Number(单位:rpx) | 是   | 块的坐标                               |
+| width           | Number(单位:rpx) | 否   | 如果内部有文字，由文字宽度和内边距决定 |
+| height          | Number(单位:rpx) | 是   |                                        |
+| paddingLeft     | Number(单位:rpx) | 否   | 内左边距                               |
+| paddingRight    | Number(单位:rpx) | 否   | 内右边距                               |
+| borderWidth     | Number(单位:rpx) | 否   | 边框宽度                               |
+| borderColor     | String           | 否   | 边框颜色                               |
+| backgroundColor | String           | 否   | 背景颜色                               |
+| borderRadius    | Number(单位:rpx) | 否   | 圆角                                   |
+| text            | Object           | 否   | 块里面可以填充文字，参考texts字段解释  |
+
+### texts字段
+
+| 字段名         | 类型             | 必填 | 描述                                                         |
+| -------------- | ---------------- | ---- | ------------------------------------------------------------ |
+| x              | Number(单位:rpx) | 是   | 坐标                                                         |
+| y              | Number(单位:rpx) | 是   | 坐标                                                         |
+| text           | String\|Object   | 是   | 当Object类型时，参数为text字段的参数，marginLeft、marginRight这两个字段可用（示例请看下文） |
+| fontSize       | Number(单位:rpx) | 是   | 文字大小                                                     |
+| color          | String           | 否   | 颜色                                                         |
+| opacity        | Int              | 否   | 1为不透明，0为透明                                           |
+| lineHeight     | Number(单位:rpx) | 否   | 行高                                                         |
+| lineNum        | Int              | 否   | 根据宽度换行，最多的行数                                     |
+| width          | Number(单位:rpx) | 否   | 没有指定为画布宽度                                           |
+| marginLeft     | Number(单位:rpx) | 否   | 当text字段为Object可以使用，用来控制多行文字间距             |
+| marginRight    | Number(单位:rpx) | 否   | 当text字段为Object可以使用，用来控制多行文字间距             |
+| textDecoration | String           | 否   | 目前只支持 line-through（贯穿线），默认为none                |
+| baseLine       | String           | 否   | top\| middle\|bottom基线对齐方式                             |
+| textAlign      | String           | 否   | left\|center\|right对齐方式                                  |
+
+### images字段
+
+| 字段         | 类型             | 必填 | 描述                                      |
+| ------------ | ---------------- | ---- | ----------------------------------------- |
+| x            | Number(单位:rpx) | 是   | 右上角的坐标                              |
+| y            | Number(单位:rpx) | 是   | 右上角的坐标                              |
+| url          | String           | 是   | 图片url（**需要添加到下载白名单域名中**） |
+| width        | Number(单位:rpx) | 是   | 宽度（**会根据图片的尺寸同比例缩放**）    |
+| height       | Number(单位:rpx) | 是   | 高度（**会根据图片的尺寸同比例缩放**）    |
+| borderRadius | Number(单位:rpx) | 否   | 圆角，跟css一样                           |
+| borderWidth  | Number(单位:rpx) | 否   | 边框宽度                                  |
+| borderColor  | String           | 否   | 边框颜色                                  |
+
+### lines字段
+
+| 字段   | 类型             | 必填 | 描述     |
+| ------ | ---------------- | ---- | -------- |
+| startX | Number(单位:rpx) | 是   | 起始坐标 |
+| startY | Number(单位:rpx) | 是   | 起始坐标 |
+| endX   | Number(单位:rpx) | 是   | 终结坐标 |
+| endY   | Number(单位:rpx) | 是   | 终结坐标 |
+| width  | Number(单位:rpx) | 是   | 线的宽度 |
+| color  | String           | 否   | 线的颜色 |
+

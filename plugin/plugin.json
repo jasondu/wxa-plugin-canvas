@@ -1,6 +1,0 @@
-{
-  "publicComponents": {
-    "canvas": "components/canvas/canvas"
-  },
-  "main": "index.js"
-}

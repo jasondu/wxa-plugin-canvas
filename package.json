@@ -1,0 +1,25 @@
+{
+  "name": "wxa-plugin-canvas",
+  "version": "1.0.4",
+  "description": "小程序海报组件",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasondu/wxa-plugin-canvas.git"
+  },
+  "keywords": [
+    "小程序"
+  ],
+  "author": "jasondu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasondu/wxa-plugin-canvas/issues"
+  },
+  "homepage": "https://github.com/jasondu/wxa-plugin-canvas#readme",
+  "files": [
+    "miniprogram_dist"
+  ]
+}
