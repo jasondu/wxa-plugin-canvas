@@ -1,22 +1,52 @@
 # wxa-plugin-canvas
 小程序组件-小程序海报组件
 
-## 其他已经上线的插件
-日历插件：https://github.com/jasondu/wxa-plugin-calendar
-点餐插件：https://github.com/jasondu/wxa-plugin-menu
+## 概述
+wxa-plugin-canvas是一个生成二维码海报的组件，通过非常简单的配置就可以生成精美的海报
 
-## 代码片段链接
+## 使用之前
 
-## 插件效果
+使用 wxa-plugin-canvas 前，请确保你已经学习过微信官方的 [小程序简易教程](https://mp.weixin.qq.com/debug/wxadoc/dev/) 和 [自定义组件介绍](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/)。
 
-- 通过简单的参数传入就可以生成分享海报，图片会根据设定的宽度和高度进行裁剪（不会压缩图片）
+## 安装
 
-## 如何使用
+#### 方式一.通过 npm 安装 (推荐)
 
+小程序已经支持使用 npm 安装第三方包，详见 [npm 支持](https://developers.weixin.qq.com/miniprogram/dev/devtools/npm.html?search-key=npm)
+
+```
+# npm
+npm i wxa-plugin-canvas -S --production
+
+# yarn
+yarn add wxa-plugin-canvas --production
+```
+
+#### 方式二.下载代码
+
+直接通过 git 下载 wxa-plugin-canvas 源代码，并将`miniprogram_dist`目录拷贝到自己的项目组件目录中
+
+## 使用组件
+
+```json
+{
+  "usingComponents": {
+	"poster": "wxa-plugin-canvas/poster",
+  }
+}
+```
+
+接着就可以在 wxml 中直接使用组件
+
+```html
+<poster config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+    <button>点击生成海报</button>
+</poster>
+```
 
 ## 组件参数解释
 
-### 全局字段
+###config字段
 
 | 字段            | 类型                     | 必填 | 描述                                       |
 | --------------- | ------------------------ | ---- | ------------------------------------------ |
@@ -25,9 +55,10 @@
 | backgroundColor | String                   | 否   | 画布颜色                                   |
 | debug           | Boolean                  | 否   | false隐藏canvas，true显示canvas，默认false |
 | blocks          | Object Array（对象数组） | 否   | 看下文                                     |
-| texts           | Object Array（对象数组） | 否   | 看下文                                    |
+| texts           | Object Array（对象数组） | 否   | 看下文                                     |
 | images          | Object Array（对象数组） | 否   | 看下文                                     |
 | lines           | Object Array（对象数组） | 否   | 看下文                                     |
+
 
 
 ###blocks字段
@@ -89,3 +120,26 @@
 | width  | Number(单位:rpx) | 是   | 线的宽度 |
 | color  | String           | 否   | 线的颜色 |
 
+## 事件
+
+### success
+
+返回生成海报图片的本地url，一般做法是使用wx.previewImage预览海报，如下
+
+```javascript
+onPosterSuccess(e) {
+	const { detail } = e;
+	wx.previewImage({
+        current: detail,
+        urls: [detail]
+    })
+}
+```
+
+### fail
+
+返回错误信息
+
+## 问题反馈
+
+有什么问题可以直接加我微信weizaidu
