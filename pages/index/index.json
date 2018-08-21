@@ -1,5 +1,5 @@
 {
     "usingComponents": {
-        "poster": "/miniprogram_dist/poster"
+        "poster": "/miniprogram_dist/poster/index"
     }
 }

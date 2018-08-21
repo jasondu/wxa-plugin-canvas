@@ -1,6 +1,6 @@
 {
     "component": true,
     "usingComponents": {
-        "we-canvas": "/miniprogram_dist/index"
+        "we-canvas": "../index/index"
     }
 }

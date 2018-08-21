@@ -1,6 +1,6 @@
 {
   "name": "wxa-plugin-canvas",
-  "version": "1.0.4",
+  "version": "1.0.8",
   "description": "小程序海报组件",
   "main": "index.js",
   "scripts": {
