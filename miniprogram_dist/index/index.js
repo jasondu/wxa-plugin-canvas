@@ -3,7 +3,7 @@ const main = {
      * 渲染块
      * @param {Object} params
      */
-    drawBlock({ text, width = 0, height, x, y, paddingLeft = 0, paddingRight = 0, borderWidth, backgroundColor, borderColor, borderRadius = 0 }) {
+    drawBlock({ text, width = 0, height, x, y, paddingLeft = 0, paddingRight = 0, borderWidth, backgroundColor, borderColor, borderRadius = 0, opacity = 1 }) {
         // 判断是否块内有文字
         let blockWidth = 0; // 块的宽度
         let textX = 0;
@@ -31,6 +31,7 @@ const main = {
         if (backgroundColor) {
             // 画面
             this.ctx.save();
+            this.ctx.setGlobalAlpha(opacity);
             this.ctx.setFillStyle(backgroundColor);
             if (borderRadius > 0) {
                 // 画圆角矩形
@@ -44,6 +45,7 @@ const main = {
         if (borderWidth) {
             // 画线
             this.ctx.save();
+            this.ctx.setGlobalAlpha(opacity);
             this.ctx.setStrokeStyle(borderColor);
             this.ctx.setLineWidth(this.toPx(borderWidth));
             if (borderRadius > 0) {
@@ -90,7 +92,7 @@ const main = {
         if (borderRadius > 0) {
             this._drawRadiusRect(x, y, w, h, borderRadius);
             this.ctx.clip();
-            this.ctx.drawImage(imgPath, this.toPx(x), this.toPx(y), this.toPx(w), this.toPx(h));
+            this.ctx.drawImage(imgPath, this.toPx(sx), this.toPx(sy), this.toPx(sw), this.toPx(sh), this.toPx(x), this.toPx(y), this.toPx(w), this.toPx(h));
             if (borderWidth > 0) {
                 this.ctx.setStrokeStyle(borderColor);
                 this.ctx.setLineWidth(this.toPx(borderWidth));
@@ -170,7 +172,7 @@ const handle = {
      * 渲染一段文字
      */
     _drawSingleText({ x, y, fontSize, color, baseLine, textAlign = 'left', text, opacity = 1, textDecoration = 'none',
-    width, lineNum = 2, lineHeight = 0 }) {
+    width, lineNum = 1, lineHeight = 0 }) {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.setGlobalAlpha(opacity);
@@ -178,7 +180,7 @@ const handle = {
         this.ctx.setFillStyle(color);
         this.ctx.setTextBaseline(baseLine);
         this.ctx.setTextAlign(textAlign);
-        let textWidth = this.ctx.measureText(text).width;
+        let textWidth = this.toRpx(this.ctx.measureText(text).width);
         const textArr = [];
         if (textWidth > width) {
             // 文本宽度 大于 渲染宽度
@@ -223,7 +225,7 @@ const handle = {
             this.ctx.restore();
         }
 
-        return this.toRpx(textWidth);
+        return textWidth;
     },
 }
 const helper = {
@@ -245,8 +247,8 @@ const helper = {
                     const borderRadius = image.borderRadius || 0;
                     const setWidth = image.width;
                     const setHeight = image.height;
-                    const width = imgInfo.width;
-                    const height = imgInfo.height;
+                    const width = this.toRpx(imgInfo.width);
+                    const height = this.toRpx(imgInfo.height);
 
                     if (width / height <= setWidth / setHeight) {
                         sx = 0;
