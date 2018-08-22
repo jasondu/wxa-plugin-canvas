@@ -79,6 +79,7 @@ yarn add wxa-plugin-canvas --production
 | backgroundColor | String           | 否   | 背景颜色                               |
 | borderRadius    | Number(单位:rpx) | 否   | 圆角                                   |
 | text            | Object           | 否   | 块里面可以填充文字，参考texts字段解释  |
+| zIndex          | Int              | 否   | 层级，越大越高                         |
 
 ### texts字段
 
@@ -98,6 +99,7 @@ yarn add wxa-plugin-canvas --production
 | textDecoration | String           | 否   | 目前只支持 line-through（贯穿线），默认为none                |
 | baseLine       | String           | 否   | top\| middle\|bottom基线对齐方式                             |
 | textAlign      | String           | 否   | left\|center\|right对齐方式                                  |
+| zIndex         | Int              | 否   | 层级，越大越高                                               |
 
 ### images字段
 
@@ -111,17 +113,19 @@ yarn add wxa-plugin-canvas --production
 | borderRadius | Number(单位:rpx) | 否   | 圆角，跟css一样                           |
 | borderWidth  | Number(单位:rpx) | 否   | 边框宽度                                  |
 | borderColor  | String           | 否   | 边框颜色                                  |
+| zIndex       | Int              | 否   | 层级，越大越高                            |
 
 ### lines字段
 
-| 字段   | 类型             | 必填 | 描述     |
-| ------ | ---------------- | ---- | -------- |
-| startX | Number(单位:rpx) | 是   | 起始坐标 |
-| startY | Number(单位:rpx) | 是   | 起始坐标 |
-| endX   | Number(单位:rpx) | 是   | 终结坐标 |
-| endY   | Number(单位:rpx) | 是   | 终结坐标 |
-| width  | Number(单位:rpx) | 是   | 线的宽度 |
-| color  | String           | 否   | 线的颜色 |
+| 字段   | 类型             | 必填 | 描述           |
+| ------ | ---------------- | ---- | -------------- |
+| startX | Number(单位:rpx) | 是   | 起始坐标       |
+| startY | Number(单位:rpx) | 是   | 起始坐标       |
+| endX   | Number(单位:rpx) | 是   | 终结坐标       |
+| endY   | Number(单位:rpx) | 是   | 终结坐标       |
+| width  | Number(单位:rpx) | 是   | 线的宽度       |
+| color  | String           | 否   | 线的颜色       |
+| zIndex | Int              | 否   | 层级，越大越高 |
 
 ## 事件
 
