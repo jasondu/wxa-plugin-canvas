@@ -1,4 +1,4 @@
 <!--index.wxml-->
-<poster config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+<poster config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
     <button>生成海报</button>
 </poster>
