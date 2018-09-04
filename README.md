@@ -147,6 +147,27 @@ onPosterSuccess(e) {
 
 返回错误信息
 
+## 异步生成海报
+
+有些场景可能需要发起ajax请求后才能获取生成海报的数据，这里提供了异步生成海报的方式。
+
+只需要引入组件中的``poster/poster.js``，如下调用就行了
+
+```javascript
+import Poster from '../../miniprogram_dist/poster/poster';
+Page({
+    /**
+     * 异步生成海报
+     */
+    onCreatePoster() {
+    	// setData配置数据
+    	this.setData({ posterConfig: {...} }, () => {
+        	Poster.create(); 
+    	});
+    }
+})
+```
+
 ## 问题反馈
 
 有什么问题可以直接加我微信weizaidu
