@@ -396,20 +396,34 @@ Component({
                         }
                     });
 
+                    const res = wx.getSystemInfoSync();
+                    const platform = res.platform;
+                    let time = 0;
+                    if (platform === 'android') {
+                        // 在安卓平台，经测试发现如果海报过于复杂在转换时需要做延时，要不然样式会错乱
+                        time = 300;
+                    }
                     this.ctx.draw(false, () => {
-                        wx.canvasToTempFilePath({
-                            canvasId: 'canvasid',
-                            success: (res) => {
-                                wx.hideLoading();
-                                this.triggerEvent('success', res.tempFilePath);
-                            },
-                            fail: (err) => {
-                                wx.hideLoading();
-                                this.triggerEvent('fail', err);
-                            }
-                        }, this);
+                        setTimeout(() => {
+                            wx.canvasToTempFilePath({
+                                canvasId: 'canvasid',
+                                success: (res) => {
+                                    wx.hideLoading();
+                                    this.triggerEvent('success', res.tempFilePath);
+                                },
+                                fail: (err) => {
+                                    wx.hideLoading();
+                                    this.triggerEvent('fail', err);
+                                }
+                            }, this);
+                        }, time);
                     });
-                });
+                })
+                .catch((err) => {
+                    wx.hideLoading();
+                    wx.showToast({ icon: 'none', title: err.errMsg || '生成失败' });
+                    console.error(err);
+                })
         }
     }, main, handle, helper),
 })
