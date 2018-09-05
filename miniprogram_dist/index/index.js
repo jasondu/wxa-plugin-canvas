@@ -219,7 +219,7 @@ const handle = {
             }
             this.ctx.save();
             this.ctx.moveTo(this.toPx(x), this.toPx(lineY));
-            this.ctx.lineTo(this.toPx(x) + textWidth, this.toPx(lineY));
+            this.ctx.lineTo(this.toPx(x) +this.toPx(textWidth) , this.toPx(lineY));
             this.ctx.setStrokeStyle(color);
             this.ctx.stroke();
             this.ctx.restore();
