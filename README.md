@@ -177,4 +177,4 @@ Page({
 
 有什么问题可以直接提issue
 
-[提issue]: https://github.com/jasondu/wxa-plugin-canvas/issues/new
+[提issue](https://github.com/jasondu/wxa-plugin-canvas/issues/new)
