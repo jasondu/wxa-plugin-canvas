@@ -1,6 +1,5 @@
 //index.js
-//获取应用实例
-const app = getApp()
+import Poster from '../../miniprogram_dist/poster/poster';
 
 Page({
     data: {
@@ -277,5 +276,12 @@ Page({
     },
     onPosterFail(err) {
         console.error(err);
+    },
+
+    /**
+     * 异步生成海报
+     */
+    onCreatePoster() {
+        Poster.create();
     }
 })

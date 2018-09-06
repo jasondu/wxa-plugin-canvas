@@ -42,10 +42,15 @@ yarn add wxa-plugin-canvas --production
 接着就可以在 wxml 中直接使用组件
 
 ```html
-<poster config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+<poster id="poster" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
     <button>点击生成海报</button>
 </poster>
 ```
+
+## 使用注意事项
+
+1. 图片的域名**务必**添加到downloadFile合法域名中（开发设置-服务器域名-downloadFile合法域名）
+2. 如果要使用**异步生成海报**的方法，务必组件要加上`` id="poster"``
 
 ## 组件参数解释
 
@@ -147,6 +152,29 @@ onPosterSuccess(e) {
 
 返回错误信息
 
+## 异步生成海报
+
+有些场景可能需要发起ajax请求后才能获取生成海报的数据，这里提供了异步生成海报的方式。
+
+只需要引入组件中的``poster/poster.js``，如下调用就行了
+
+```javascript
+import Poster from '../../miniprogram_dist/poster/poster';
+Page({
+    /**
+     * 异步生成海报
+     */
+    onCreatePoster() {
+    	// setData配置数据
+    	this.setData({ posterConfig: {...} }, () => {
+        	Poster.create(); 
+    	});
+    }
+})
+```
+
 ## 问题反馈
 
-有什么问题可以直接加我微信weizaidu
+有什么问题可以直接提issue
+
+[提issue](https://github.com/jasondu/wxa-plugin-canvas/issues/new)
