@@ -112,7 +112,7 @@ yarn add wxa-plugin-canvas --production
 | ------------ | ---------------- | ---- | ----------------------------------------- |
 | x            | Number(单位:rpx) | 是   | 右上角的坐标                              |
 | y            | Number(单位:rpx) | 是   | 右上角的坐标                              |
-| url          | String           | 是   | 图片url（**需要添加到下载白名单域名中**） |
+| url          | String           | 是   | 图片url（**需要添加到下载白名单域名中**）也支持本地图片 |
 | width        | Number(单位:rpx) | 是   | 宽度（**会根据图片的尺寸同比例缩放**）    |
 | height       | Number(单位:rpx) | 是   | 高度（**会根据图片的尺寸同比例缩放**）    |
 | borderRadius | Number(单位:rpx) | 否   | 圆角，跟css一样                           |
