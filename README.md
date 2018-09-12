@@ -64,6 +64,8 @@ yarn add wxa-plugin-canvas --production
 | height          | Number(单位:rpx)         | 是   | 画布高度                                   |
 | backgroundColor | String                   | 否   | 画布颜色                                   |
 | debug           | Boolean                  | 否   | false隐藏canvas，true显示canvas，默认false |
+| preload         | Boolean                  | 否   | true：图片资源预下载 默认false             |
+| hide-loading    | Boolean                  | 否   | true：隐藏loading 默认false                |
 | blocks          | Object Array（对象数组） | 否   | 看下文                                     |
 | texts           | Object Array（对象数组） | 否   | 看下文                                     |
 | images          | Object Array（对象数组） | 否   | 看下文                                     |
