@@ -358,9 +358,7 @@ Component({
         create(config) {
             this.ctx = wx.createCanvasContext('canvasid', this);
 
-            wx.showLoading({ mask: true, title: '生成中' });
             this.initCanvas(config.width, config.height, config.debug)
-                .then(() => this.downloadResource(config.images))
                 .then(() => {
                     // 设置画布底色
                     if (config.backgroundColor) {
@@ -413,11 +411,9 @@ Component({
                             wx.canvasToTempFilePath({
                                 canvasId: 'canvasid',
                                 success: (res) => {
-                                    wx.hideLoading();
                                     this.triggerEvent('success', res.tempFilePath);
                                 },
                                 fail: (err) => {
-                                    wx.hideLoading();
                                     this.triggerEvent('fail', err);
                                 }
                             }, this);
@@ -425,7 +421,6 @@ Component({
                     });
                 })
                 .catch((err) => {
-                    wx.hideLoading();
                     wx.showToast({ icon: 'none', title: err.errMsg || '生成失败' });
                     console.error(err);
                 })

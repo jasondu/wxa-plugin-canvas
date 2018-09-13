@@ -1,5 +1,5 @@
 <!--index.wxml-->
-<poster id="poster" config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+<poster id="poster" hide-loading="{{true}}" preload="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
     <button>生成海报</button>
 </poster>
 
