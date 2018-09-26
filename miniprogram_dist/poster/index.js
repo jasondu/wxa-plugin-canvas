@@ -61,7 +61,7 @@ Component({
         onCreate() {
             !this.data.hideLoading && wx.showLoading({ mask: true, title: '生成中' });
             return this.downloadResource().then(() => {
-                this.data.hideLoading && wx.hideLoading();
+                !this.data.hideLoading && wx.hideLoading();
                 const poster = this.selectComponent('#poster');
                 poster.create(this.data.config);
             })
@@ -69,6 +69,7 @@ Component({
                 !this.data.hideLoading && wx.hideLoading();
                 wx.showToast({ icon: 'none', title: err.errMsg || '生成失败' });
                 console.error(err);
+                this.triggerEvent('fail', err);
             })
         },
         onCreateSuccess(e) {
@@ -77,7 +78,7 @@ Component({
         },
         onCreateFail(err) {
             console.error(err);
-            this.triggerEvent('fail', detail);
+            this.triggerEvent('fail', err);
         }
     }
 })

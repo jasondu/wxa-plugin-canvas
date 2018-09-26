@@ -284,7 +284,7 @@ const helper = {
      */
     _downImage(imageUrl) {
         return new Promise((resolve, reject) => {
-            if (/^http/.test(imageUrl)) {
+            if (/^http/.test(imageUrl) && !new RegExp(wx.env.USER_DATA_PATH).test(imageUrl)) {
                 wx.downloadFile({
                     url: this._mapHttpToHttps(imageUrl),
                     success: (res) => {
@@ -415,7 +415,7 @@ Component({
                                 },
                                 fail: (err) => {
                                     this.triggerEvent('fail', err);
-                                }
+                                },
                             }, this);
                         }, time);
                     });
@@ -423,7 +423,8 @@ Component({
                 .catch((err) => {
                     wx.showToast({ icon: 'none', title: err.errMsg || '生成失败' });
                     console.error(err);
-                })
-        }
+                });
+        },
     }, main, handle, helper),
-})
+});
+
