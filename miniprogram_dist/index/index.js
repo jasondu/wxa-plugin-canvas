@@ -109,11 +109,13 @@ const main = {
      */
     drawLine({ startX, startY, endX, endY, color, width }) {
         this.ctx.save();
+        this.ctx.beginPath();
         this.ctx.setStrokeStyle(color);
         this.ctx.setLineWidth(this.toPx(width));
         this.ctx.moveTo(this.toPx(startX), this.toPx(startY));
         this.ctx.lineTo(this.toPx(endX), this.toPx(endY));
         this.ctx.stroke();
+        this.ctx.closePath();
         this.ctx.restore();
     },
     downloadResource(images = []) {
