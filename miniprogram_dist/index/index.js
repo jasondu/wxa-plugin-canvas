@@ -141,13 +141,13 @@ const handle = {
         this.ctx.beginPath();
         this.ctx.moveTo(this.toPx(x + br), this.toPx(y));    // 移动到左上角的点
         this.ctx.lineTo(this.toPx(x + w - br), this.toPx(y));
-        this.ctx.arcTo(this.toPx(x + w), this.toPx(y), this.toPx(x + w), this.toPx(y + br), this.toPx(br));
+        this.ctx.arc(this.toPx(x + w - br), this.toPx(y + br), this.toPx(br), 2 * Math.PI * (3 / 4), 2 * Math.PI * (4 / 4))
         this.ctx.lineTo(this.toPx(x + w), this.toPx(y + h - br));
-        this.ctx.arcTo(this.toPx(x + w), this.toPx(y + h), this.toPx(x + w - br), this.toPx(y + h), this.toPx(br));
+        this.ctx.arc(this.toPx(x + w - br), this.toPx(y + h - br), this.toPx(br), 0, 2 * Math.PI * (1 / 4))
         this.ctx.lineTo(this.toPx(x + br), this.toPx(y + h));
-        this.ctx.arcTo(this.toPx(x), this.toPx(y + h), this.toPx(x), this.toPx(y + h - br), this.toPx(br));
+        this.ctx.arc(this.toPx(x + br), this.toPx(y + h - br), this.toPx(br), 2 * Math.PI * (1 / 4), 2 * Math.PI * (2 / 4))
         this.ctx.lineTo(this.toPx(x), this.toPx(y + br));
-        this.ctx.arcTo(this.toPx(x), this.toPx(y), this.toPx(x + br), this.toPx(y), this.toPx(br));
+        this.ctx.arc(this.toPx(x + br), this.toPx(y + br), this.toPx(br), 2 * Math.PI * (2 / 4), 2 * Math.PI * (3 / 4))
     },
     /**
      * 计算文本长度
