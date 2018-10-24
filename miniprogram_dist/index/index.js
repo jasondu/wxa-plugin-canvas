@@ -355,16 +355,68 @@ Component({
         this.factor = screenWidth / 750;
     },
     methods: Object.assign({
+        /**
+         * 计算画布的高度
+         * @param {*} config
+         */
+        getHeight(config) {
+            const getTextHeight = (text) => {
+                let fontHeight = text.lineHeight || text.fontSize;
+                let height = 0;
+                if (text.baseLine === 'top') {
+                    height = fontHeight;
+                } else if (text.baseLine === 'middle') {
+                    height = fontHeight / 2;
+                } else {
+                    height = 0;
+                }
+                return height;
+            }
+            const heightArr = [];
+            (config.blocks || []).forEach((item) => {
+                heightArr.push(item.y + item.height);
+            });
+            (config.texts  || []).forEach((item) => {
+                let height;
+                if (Object.prototype.toString.call(item.text) === '[object Array]') {
+                    item.text.forEach((i) => {
+                        height = getTextHeight({...i, baseLine: item.baseLine});
+                        heightArr.push(item.y + height);
+                    });
+                } else {
+                    height = getTextHeight(item);
+                    heightArr.push(item.y + height);
+                }
+            });
+            (config.images || []).forEach((item) => {
+                heightArr.push(item.y + item.height);
+            });
+            (config.lines || []).forEach((item) => {
+                heightArr.push(item.startY);
+                heightArr.push(item.endY);
+            });
+            const sortRes = heightArr.sort((a, b) => b - a);
+            let canvasHeight = 0;
+            if (sortRes.length > 0) {
+                canvasHeight = sortRes[0];
+            }
+            if (config.height < canvasHeight || !config.height) {
+                return canvasHeight;
+            } else {
+                return config.height;
+            }
+        },
         create(config) {
             this.ctx = wx.createCanvasContext('canvasid', this);
 
-            this.initCanvas(config.width, config.height, config.debug)
+            const height = this.getHeight(config);
+            this.initCanvas(config.width, height, config.debug)
                 .then(() => {
                     // 设置画布底色
                     if (config.backgroundColor) {
                         this.ctx.save();
                         this.ctx.setFillStyle(config.backgroundColor);
-                        this.ctx.fillRect(0, 0, this.toPx(config.width), this.toPx(config.height));
+                        this.ctx.fillRect(0, 0, this.toPx(config.width), this.toPx(height));
                         this.ctx.restore();
                     }
                     const { texts = [], images = [], blocks = [], lines = [] } = config;
