@@ -109,11 +109,13 @@ const main = {
      */
     drawLine({ startX, startY, endX, endY, color, width }) {
         this.ctx.save();
+        this.ctx.beginPath();
         this.ctx.setStrokeStyle(color);
         this.ctx.setLineWidth(this.toPx(width));
         this.ctx.moveTo(this.toPx(startX), this.toPx(startY));
         this.ctx.lineTo(this.toPx(endX), this.toPx(endY));
         this.ctx.stroke();
+        this.ctx.closePath();
         this.ctx.restore();
     },
     downloadResource(images = []) {
@@ -141,13 +143,13 @@ const handle = {
         this.ctx.beginPath();
         this.ctx.moveTo(this.toPx(x + br), this.toPx(y));    // 移动到左上角的点
         this.ctx.lineTo(this.toPx(x + w - br), this.toPx(y));
-        this.ctx.arcTo(this.toPx(x + w), this.toPx(y), this.toPx(x + w), this.toPx(y + br), this.toPx(br));
+        this.ctx.arc(this.toPx(x + w - br), this.toPx(y + br), this.toPx(br), 2 * Math.PI * (3 / 4), 2 * Math.PI * (4 / 4))
         this.ctx.lineTo(this.toPx(x + w), this.toPx(y + h - br));
-        this.ctx.arcTo(this.toPx(x + w), this.toPx(y + h), this.toPx(x + w - br), this.toPx(y + h), this.toPx(br));
+        this.ctx.arc(this.toPx(x + w - br), this.toPx(y + h - br), this.toPx(br), 0, 2 * Math.PI * (1 / 4))
         this.ctx.lineTo(this.toPx(x + br), this.toPx(y + h));
-        this.ctx.arcTo(this.toPx(x), this.toPx(y + h), this.toPx(x), this.toPx(y + h - br), this.toPx(br));
+        this.ctx.arc(this.toPx(x + br), this.toPx(y + h - br), this.toPx(br), 2 * Math.PI * (1 / 4), 2 * Math.PI * (2 / 4))
         this.ctx.lineTo(this.toPx(x), this.toPx(y + br));
-        this.ctx.arcTo(this.toPx(x), this.toPx(y), this.toPx(x + br), this.toPx(y), this.toPx(br));
+        this.ctx.arc(this.toPx(x + br), this.toPx(y + br), this.toPx(br), 2 * Math.PI * (2 / 4), 2 * Math.PI * (3 / 4))
     },
     /**
      * 计算文本长度
@@ -284,7 +286,7 @@ const helper = {
      */
     _downImage(imageUrl) {
         return new Promise((resolve, reject) => {
-            if (/^http/.test(imageUrl)) {
+            if (/^http/.test(imageUrl) && !new RegExp(wx.env.USER_DATA_PATH).test(imageUrl)) {
                 wx.downloadFile({
                     url: this._mapHttpToHttps(imageUrl),
                     success: (res) => {
@@ -467,7 +469,7 @@ Component({
                                 },
                                 fail: (err) => {
                                     this.triggerEvent('fail', err);
-                                }
+                                },
                             }, this);
                         }, time);
                     });
@@ -475,7 +477,8 @@ Component({
                 .catch((err) => {
                     wx.showToast({ icon: 'none', title: err.errMsg || '生成失败' });
                     console.error(err);
-                })
-        }
+                });
+        },
     }, main, handle, helper),
-})
+});
+

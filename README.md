@@ -9,6 +9,10 @@ wxa-plugin-canvas是一个生成二维码海报的组件，通过非常简单的
 ## 生成效果
 <img width="300" src="https://github.com/jasondu/wxa-plugin-canvas/blob/master/demo.png"></img>
 
+## 组件原理说明文章
+
+https://juejin.im/post/5b7e48566fb9a01a1059543f
+
 ## 使用之前
 
 使用 wxa-plugin-canvas 前，请确保你已经学习过微信官方的 [小程序简易教程](https://mp.weixin.qq.com/debug/wxadoc/dev/) 和 [自定义组件介绍](https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/)。
