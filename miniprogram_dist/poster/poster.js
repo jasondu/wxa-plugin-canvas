@@ -17,12 +17,12 @@ function Poster(options = {}) {
     return poster;
 };
 
-Poster.create = () => {
+Poster.create = (reset = false) => {
     const poster  = Poster();
     if (!poster) {
         console.error('请设置组件的id="poster"!!!');
     } else {
-        return Poster().onCreate();
+        return Poster().onCreate(reset);
     }
 }
 

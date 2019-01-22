@@ -14,11 +14,6 @@
 	"libVersion": "2.3.0",
 	"appid": "wx637a3fa923864f90",
 	"projectname": "%E6%B5%B7%E6%8A%A5%E7%BB%84%E4%BB%B6",
-	"svr": "/",
-	"client": "/",
-	"qcloudRoot": "/",
-	"miniprogramRoot": "/",
-	"pluginRoot": "/",
 	"scripts": {},
 	"condition": {
 		"search": {

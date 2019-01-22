@@ -1,6 +1,7 @@
 <!--index.wxml-->
-<poster id="poster" hide-loading="{{true}}" preload="{{true}}" config="{{jdConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
+<poster id="poster" hide-loading="{{true}}" preload="{{false}}" config="{{posterConfig}}" bind:success="onPosterSuccess" bind:fail="onPosterFail">
     <button>生成海报</button>
 </poster>
 
-<button bindtap="onCreatePoster">异步生成海报</button>
+<button bindtap="onCreatePoster">异步生成海报一</button>
+<button bindtap="onCreateOtherPoster">异步生成海报二</button>
