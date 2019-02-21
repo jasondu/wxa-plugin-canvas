@@ -68,7 +68,7 @@ const main = {
      * @param {Object} params
      */
     drawText(params) {
-      const { x, y, fontSize, color, baseLine, textAlign, text, opacity = 1, width, lineNum, lineHeight} = params;
+        const { x, y, fontSize, color, baseLine, textAlign, text, opacity = 1, width, lineNum, lineHeight} = params;
         if (Object.prototype.toString.call(text) === '[object Array]') {
             let preText = { x, y, baseLine };
             text.forEach(item => {
@@ -188,7 +188,7 @@ const handle = {
         if (textWidth > width) {
             // 文本宽度 大于 渲染宽度
             const unitTextWidth = +(textWidth / text.length).toFixed(2);
-            const unitLineNum = width / unitTextWidth;  // 一行文本数量
+            const unitLineNum = parseInt(width / unitTextWidth);  // 一行文本数量
             for (let i = 0; i <= text.length; i += unitLineNum) {  // 将文字转为数组，一行文字一个元素
                 const resText = text.slice(i, i + unitLineNum);
                 resText !== '' && textArr.push(resText);
