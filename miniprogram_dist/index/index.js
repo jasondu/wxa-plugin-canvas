@@ -68,7 +68,7 @@ const main = {
      * @param {Object} params
      */
     drawText(params) {
-        const { x, y, fontSize, color, baseLine, textAlign, text, opacity = 1, width, lineNum, lineHeight} = params;
+        const { x, y, fontSize, color, baseLine, textAlign, text, opacity = 1, width, lineNum, lineHeight } = params;
         if (Object.prototype.toString.call(text) === '[object Array]') {
             let preText = { x, y, baseLine };
             text.forEach(item => {
