@@ -325,11 +325,17 @@ const helper = {
             });
         });
     },
-    toPx(rpx) {
-      return parseInt(rpx * this.factor);
+    toPx(rpx, int) {
+      if (int) {
+        return parseInt(rpx * this.factor);
+      }
+      return rpx * this.factor;
     },
-    toRpx(px) {
-      return parseInt(px / this.factor);
+    toRpx(px, int) {
+      if (int) {
+        return parseInt(px / this.factor);
+      }
+      return px / this.factor;
     },
     /**
      * 将http转为https
