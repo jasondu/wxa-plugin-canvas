@@ -174,11 +174,12 @@ const handle = {
      * 渲染一段文字
      */
     _drawSingleText({ x, y, fontSize, color, baseLine, textAlign = 'left', text, opacity = 1, textDecoration = 'none',
-    width, lineNum = 1, lineHeight = 0 }) {
+      width, lineNum = 1, lineHeight = 0, bold = 'normal', italic = 'normal', fontFamily = "sans-serif"}) {
         this.ctx.save();
         this.ctx.beginPath();
+        this.ctx.font = italic + " " + bold + " " + this.toPx(fontSize, true) + "px " + fontFamily
         this.ctx.setGlobalAlpha(opacity);
-        this.ctx.setFontSize(this.toPx(fontSize));
+        // this.ctx.setFontSize(this.toPx(fontSize));
         this.ctx.setFillStyle(color);
         this.ctx.setTextBaseline(baseLine);
         this.ctx.setTextAlign(textAlign);
@@ -187,7 +188,7 @@ const handle = {
         if (textWidth > width) {
             // 文本宽度 大于 渲染宽度
             const unitTextWidth = +(textWidth / text.length).toFixed(2);
-            const unitLineNum = width / unitTextWidth;  // 一行文本数量
+            const unitLineNum = parseInt(width / unitTextWidth);  // 一行文本数量
             for (let i = 0; i <= text.length; i += unitLineNum) {  // 将文字转为数组，一行文字一个元素
                 const resText = text.slice(i, i + unitLineNum);
                 resText !== '' && textArr.push(resText);
@@ -324,11 +325,17 @@ const helper = {
             });
         });
     },
-    toPx(rpx) {
-        return rpx * this.factor;
+    toPx(rpx, int) {
+      if (int) {
+        return parseInt(rpx * this.factor);
+      }
+      return rpx * this.factor;
     },
-    toRpx(px) {
-        return px / this.factor;
+    toRpx(px, int) {
+      if (int) {
+        return parseInt(px / this.factor);
+      }
+      return px / this.factor;
     },
     /**
      * 将http转为https
