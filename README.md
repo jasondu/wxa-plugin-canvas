@@ -113,6 +113,10 @@ yarn add wxa-plugin-canvas --production
 | baseLine       | String           | 否   | top\| middle\|bottom基线对齐方式                             |
 | textAlign      | String           | 否   | left\|center\|right对齐方式                                  |
 | zIndex         | Int              | 否   | 层级，越大越高                                               |
+| bold           | String           | 否   | 'bold'加粗字体                                              |
+| italic         | String           | 否   | 'italic'倾斜字体                                          |
+| fontFamily     | String           | 否   | 小程序默认字体为'sans-serif', 请输入小程序支持的字体，例如：'STSong' |
+
 
 ### images字段
 
