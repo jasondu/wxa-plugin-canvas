@@ -174,10 +174,10 @@ const handle = {
      * 渲染一段文字
      */
     _drawSingleText({ x, y, fontSize, color, baseLine, textAlign = 'left', text, opacity = 1, textDecoration = 'none',
-      width, lineNum = 1, lineHeight = 0, bold = 'normal', italic = 'normal', fontFamily = "sans-serif"}) {
+      width, lineNum = 1, lineHeight = 0, fontWeight = 'normal', fontStyle = 'normal', fontFamily = "sans-serif"}) {
         this.ctx.save();
         this.ctx.beginPath();
-        this.ctx.font = italic + " " + bold + " " + this.toPx(fontSize, true) + "px " + fontFamily
+        this.ctx.font = fontStyle + " " + fontWeight + " " + this.toPx(fontSize, true) + "px " + fontFamily
         this.ctx.setGlobalAlpha(opacity);
         // this.ctx.setFontSize(this.toPx(fontSize));
         this.ctx.setFillStyle(color);
