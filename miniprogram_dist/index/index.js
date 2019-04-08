@@ -91,6 +91,8 @@ const main = {
         this.ctx.save();
         if (borderRadius > 0) {
             this._drawRadiusRect(x, y, w, h, borderRadius);
+            this.ctx.strokeStyle = 'rgba(255,255,255,0)';
+            this.ctx.stroke();
             this.ctx.clip();
             this.ctx.drawImage(imgPath, this.toPx(sx), this.toPx(sy), this.toPx(sw), this.toPx(sh), this.toPx(x), this.toPx(y), this.toPx(w), this.toPx(h));
             if (borderWidth > 0) {
