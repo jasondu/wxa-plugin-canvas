@@ -183,6 +183,8 @@ Page({
     }
 })
 ```
+## 赞赏
+<img width="350" src="https://github.com/jasondu/wxa-plugin-canvas/blob/master/zan.png"></img>
 
 ## 问题反馈
 
