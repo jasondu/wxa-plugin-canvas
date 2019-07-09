@@ -120,10 +120,10 @@ const main = {
         this.ctx.closePath();
         this.ctx.restore();
     },
-    downloadResource(images = []) {
+    downloadResource({ images = [], pixelRatio = 1 }) {
         const drawList = [];
         this.drawArr = [];
-        images.forEach((image, index) => drawList.push(this._downloadImageAndInfo(image, index)));
+        images.forEach((image, index) => drawList.push(this._downloadImageAndInfo(image, index, pixelRatio)));
         return Promise.all(drawList);
     },
     initCanvas(w, h, debug) {
@@ -245,7 +245,7 @@ const helper = {
     /**
       * 下载图片并获取图片信息
       */
-    _downloadImageAndInfo(image, index) {
+    _downloadImageAndInfo(image, index, pixelRatio) {
         return new Promise((resolve, reject) => {
             const { x, y, url, zIndex } = image;
             const imageUrl = url;
@@ -260,8 +260,8 @@ const helper = {
                     const borderRadius = image.borderRadius || 0;
                     const setWidth = image.width;
                     const setHeight = image.height;
-                    const width = this.toRpx(imgInfo.width);
-                    const height = this.toRpx(imgInfo.height);
+                    const width = this.toRpx(imgInfo.width / pixelRatio);
+                    const height = this.toRpx(imgInfo.height / pixelRatio);
 
                     if (width / height <= setWidth / setHeight) {
                         sx = 0;
@@ -337,9 +337,10 @@ const helper = {
     },
     toPx(rpx, int) {
       if (int) {
-        return parseInt(rpx * this.factor);
+        return parseInt(rpx * this.factor * this.pixelRatio);
       }
-      return rpx * this.factor;
+      return rpx * this.factor * this.pixelRatio;
+
     },
     toRpx(px, int) {
       if (int) {
@@ -428,6 +429,7 @@ Component({
         create(config) {
             this.ctx = wx.createCanvasContext('canvasid', this);
 
+            this.pixelRatio = config.pixelRatio || 1;
             const height = this.getHeight(config);
             this.initCanvas(config.width, height, config.debug)
                 .then(() => {
