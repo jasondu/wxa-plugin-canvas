@@ -7,6 +7,7 @@ const posterConfig = {
         height: 1334,
         backgroundColor: '#fff',
         debug: false,
+        pixelRatio: 1,
         blocks: [
             {
                 width: 690,

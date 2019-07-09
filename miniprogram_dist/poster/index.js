@@ -17,7 +17,7 @@ Component({
         if (this.data.preload) {
             const poster = this.selectComponent('#poster');
             this.downloadStatus = 'doing';
-            poster.downloadResource(this.data.config.images).then(() => {
+            poster.downloadResource(this.data.config).then(() => {
                 this.downloadStatus = 'success';
                 this.trigger('downloadSuccess');
             }).catch((e) => {
@@ -52,7 +52,7 @@ Component({
                         this.once('downloadFail', (e) => reject(e));
                     }
                 } else {
-                    poster.downloadResource(this.data.config.images)
+                    poster.downloadResource(this.data.config)
                         .then(() => {
                             this.downloadStatus = 'success';
                             resolve();
