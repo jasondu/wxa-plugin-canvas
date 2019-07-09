@@ -216,10 +216,20 @@ const handle = {
         } else {
           textArr.push(text);
         }
-
         textArr.forEach((item, index) => {
-            this.ctx.fillText(item, this.toPx(x), this.toPx(y + (lineHeight || fontSize) * index));
+          if (textAlign === 'left') {
+            this.ctx.fillText(item, this.toPx(x), this.toPx(y + (lineHeight || fontSize) * index) + (lineHeight || fontSize) / 2);
+          }
+          else if (textAlign === 'center') {
+            this.ctx.fillText(item, this.toPx(x + width / 2), this.toPx(y + (lineHeight || fontSize) * index) + (lineHeight || fontSize) / 2);
+          }
+          else if (textAlign === 'right') {
+            this.ctx.fillText(item, this.toPx(x + width), this.toPx(y + (lineHeight || fontSize) * index) + (lineHeight || fontSize) / 2);
+          }
         })
+        // textArr.forEach((item, index) => {
+        //     this.ctx.fillText(item, this.toPx(x), this.toPx(y + (lineHeight || fontSize) * index));
+        // })
 
         this.ctx.restore();
 
