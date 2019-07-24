@@ -229,6 +229,24 @@ const handle = {
             if (textDecoration === 'line-through') {
                 // 目前只支持贯穿线
                 lineY = y;
+
+                // 小程序画布baseLine偏移阈值
+                let threshold = 5;
+
+                // 根据baseLine的不同对贯穿线的Y坐标做相应调整
+                switch (baseLine) {
+                  case 'top':
+                    lineY += fontSize / 2 + threshold;
+                    break;
+                  case 'middle':
+                    break;
+                  case 'bottom':
+                    lineY -= fontSize / 2 + threshold;
+                    break;
+                  default:
+                    lineY -= fontSize / 2 - threshold;
+                    break;
+                }
             }
             this.ctx.save();
             this.ctx.moveTo(this.toPx(x), this.toPx(lineY));
