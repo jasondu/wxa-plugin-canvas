@@ -184,6 +184,27 @@ Page({
     }
 })
 ```
+## 自定义组件异步生成海报
+
+有些场景可能需要发起ajax请求后才能获取生成海报的数据，这里提供了异步生成海报的方式。
+
+只需要引入组件中的``poster/poster.js``，如下调用就行了，与page不同的是，需要在Poster.create中加入this。
+
+```javascript
+import Poster from '../../miniprogram_dist/poster/poster';
+Component({
+    /**
+     * 自定义组件异步生成海报
+     */
+    onCreatePoster() {
+    	// setData配置数据
+    	this.setData({ posterConfig: {...} }, () => {
+        	Poster.create(true, this); 
+    	});
+    }
+})
+```
+
 ## 赞赏
 <img width="350" src="https://github.com/jasondu/wxa-plugin-canvas/blob/master/zan.jpg"></img>
 
