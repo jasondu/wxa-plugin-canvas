@@ -31,8 +31,8 @@ const main = {
         if (backgroundColor) {
             // 画面
             this.ctx.save();
-            this.ctx.setGlobalAlpha(opacity);
-            this.ctx.setFillStyle(backgroundColor);
+            this.ctx.globalAlpha = opacity;
+            this.ctx.fillStyle = backgroundColor; 
             if (borderRadius > 0) {
                 // 画圆角矩形
                 this._drawRadiusRect(x, y, blockWidth, height, borderRadius);
@@ -45,7 +45,7 @@ const main = {
         if (borderWidth) {
             // 画线
             this.ctx.save();
-            this.ctx.setGlobalAlpha(opacity);
+            this.ctx.globalAlpha = opacity;
             this.ctx.setStrokeStyle(borderColor);
             this.ctx.setLineWidth(this.toPx(borderWidth));
             if (borderRadius > 0) {
@@ -180,9 +180,9 @@ const handle = {
         this.ctx.save();
         this.ctx.beginPath();
         this.ctx.font = fontStyle + " " + fontWeight + " " + this.toPx(fontSize, true) + "px " + fontFamily
-        this.ctx.setGlobalAlpha(opacity);
+        this.ctx.globalAlpha = opacity;
         // this.ctx.setFontSize(this.toPx(fontSize));
-        this.ctx.setFillStyle(color);
+        this.ctx.fillStyle = color; 
         this.ctx.setTextBaseline(baseLine);
         this.ctx.setTextAlign(textAlign);
         let textWidth = this.toRpx(this.ctx.measureText(text).width);
@@ -454,7 +454,7 @@ Component({
                     // 设置画布底色
                     if (config.backgroundColor) {
                         this.ctx.save();
-                        this.ctx.setFillStyle(config.backgroundColor);
+                        this.ctx.fillStyle = config.backgroundColor;
                         this.ctx.fillRect(0, 0, this.toPx(config.width), this.toPx(height));
                         this.ctx.restore();
                     }
