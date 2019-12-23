@@ -185,7 +185,7 @@ const handle = {
         this.ctx.setFillStyle(color);
         this.ctx.setTextBaseline(baseLine);
         this.ctx.setTextAlign(textAlign);
-        let textWidth = this.toRpx(this.ctx.measureText(text).width);
+        let textWidth = this.toRpx(this.ctx.measureText(text).width / this.pixelRatio);
         const textArr = [];
          if (textWidth > width) {
           // 文本宽度 大于 渲染宽度
