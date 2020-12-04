@@ -180,6 +180,8 @@ Page({
     	// setData配置数据
     	this.setData({ posterConfig: {...} }, () => {
         	Poster.create(); 
+		// 图片更新需要加true，内部处理了没有参数不下载图片
+		Poster.create(true)
     	});
     }
 })
