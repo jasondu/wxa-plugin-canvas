@@ -315,7 +315,10 @@ const helper = {
      */
     _downImage(imageUrl) {
         return new Promise((resolve, reject) => {
-            if (/^http/.test(imageUrl) && !new RegExp(wx.env.USER_DATA_PATH).test(imageUrl)) {
+            if(/^http(s)?:\/\/tmp\//.test(imageUrl)){
+                //剔除掉http://tmp/路径以支持微信临时文件;
+                resolve(imageUrl);
+            }else if (/^http/.test(imageUrl) && !new RegExp(wx.env.USER_DATA_PATH).test(imageUrl)) {
                 wx.downloadFile({
                     url: this._mapHttpToHttps(imageUrl),
                     success: (res) => {
