@@ -191,25 +191,35 @@ const handle = {
           // 文本宽度 大于 渲染宽度
           let fillText = '';
           let line = 1;
-          for (let i = 0; i <= text.length - 1 ; i++) {  // 将文字转为数组，一行文字一个元素
-            fillText = fillText + text[i];
-            if (this.toRpx(this.ctx.measureText(fillText).width) >= width) {
-              if (line === lineNum) {
-                if (i !== text.length - 1) {
-                  fillText = fillText.substring(0, fillText.length - 1) + '...';
-                }
-              }
-              if(line <= lineNum) {
+          for (let i = 0; i <= text.length - 1 && line <= lineNum; i++) {  // 将文字转为数组，一行文字一个元素
+            if (text[i] === "\n") { // 遇到换行符，将现有fillText截断，单独成行。
                 textArr.push(fillText);
-              }
-              fillText = '';
-              line++;
-            } else {
-              if(line <= lineNum) {
-                if(i === text.length -1){
-                   textArr.push(fillText);
+                fillText = "";
+                line += 1;
+            } else if (text[i] === "") { // 遇到空行，调用canvas绘制一个\n
+                textArr.push("\n");
+                fillText = "";
+                line += 1;
+            }else {
+                fillText = fillText + text[i];
+                if (this.toRpx(this.ctx.measureText(fillText).width) >= width) {
+                  if (line === lineNum) {
+                    if (i !== text.length - 1) {
+                      fillText = fillText.substring(0, fillText.length - 1) + '...';
+                    }
+                  }
+                  if(line <= lineNum) {
+                    textArr.push(fillText);
+                  }
+                  fillText = '';
+                  line++;
+                } else {
+                  if(line <= lineNum) {
+                    if(i === text.length -1){
+                       textArr.push(fillText);
+                    }
+                  }
                 }
-              }
             }
           }
           textWidth = width;
